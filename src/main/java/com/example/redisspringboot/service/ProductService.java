@@ -4,6 +4,7 @@ package com.example.redisspringboot.service;
 import com.example.redisspringboot.dto.ProductQueryParams;
 import com.example.redisspringboot.dto.ProductRequest;
 import com.example.redisspringboot.vo.Product;
+
 import  java.util.*;
 public interface ProductService {
     Product getProductById(Integer id);
@@ -12,4 +13,5 @@ public interface ProductService {
 
     int countProduct(ProductQueryParams productQueryParams);
 
+    Product updateProduct( Integer productId, ProductRequest productRequest);
 }

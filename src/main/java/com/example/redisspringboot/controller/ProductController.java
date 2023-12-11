@@ -5,9 +5,11 @@ import com.example.redisspringboot.dto.ProductQueryParams;
 import com.example.redisspringboot.dto.ProductRequest;
 import com.example.redisspringboot.service.ProductService;
 import com.example.redisspringboot.vo.Product;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,5 +60,17 @@ public class ProductController {
         page.setResults(products);
         System.out.println(page.getResults().get(0).getProductId());
         return ResponseEntity.ok().body(page);
+    }
+
+    @PutMapping ("/product/{productId}")
+    public ResponseEntity<Product> updateProduct(@PathVariable(name = "productId")Integer productId,
+                                                 @RequestBody @Valid ProductRequest  request) {
+        Product check=productService.getProductById(productId);
+        if(check == null)//先檢查商品是否存在
+            return ResponseEntity.badRequest().build();
+        System.out.println("商品存在");
+        productService.updateProduct(productId,request);
+        Product rs=productService.getProductById(productId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(rs);
     }
 }

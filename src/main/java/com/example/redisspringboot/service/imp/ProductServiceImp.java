@@ -7,6 +7,7 @@ import com.example.redisspringboot.mapper.ProductMapper;
 import com.example.redisspringboot.service.ProductService;
 import com.example.redisspringboot.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class ProductServiceImp  implements ProductService {
     @Autowired
     private ProductMapper productMapper;
     @Override
-    @Cacheable(value = "getProductById", keyGenerator = "keyGenerator")
+    @Cacheable(value = "getProductById", key = "#id")
     public Product getProductById(Integer id) {
         return productMapper.getById(id);
     }
@@ -40,6 +41,15 @@ public class ProductServiceImp  implements ProductService {
     @Override
     public int countProduct(ProductQueryParams productQueryParams) {
         return productMapper.countProduct(productQueryParams);
+    }
+
+    @CachePut(value = "getProductById", key = "#productId")
+    @Override
+    public Product updateProduct(Integer productId, ProductRequest productRequest) {
+        Date now = new Date();
+        productRequest.setLastModifiedDate(now);
+        productMapper.updateById(productId,productRequest);
+        return  getProductById(productId);
     }
 
 

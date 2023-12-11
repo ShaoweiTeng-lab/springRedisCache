@@ -65,4 +65,16 @@ public interface ProductMapper {
 
     @SelectProvider(type = ProductProvider.class,method = "countProduct")
     Integer countProduct(@Param("productQueryParams") ProductQueryParams productQueryParams);
+
+    @Update("update  product set " +
+            "product_name=#{productRequest.productName}," +
+            "category= #{productRequest.category} ," +
+            "IMAGE_URL= #{productRequest.imageUrl} ," +
+            "PRICE= #{productRequest.price}," +
+            "STOCK= #{productRequest.stock} ," +
+            "description= #{productRequest.description}," +
+            "LAST_MODIFIED_DATE= #{productRequest.lastModifiedDate}" +
+            " where " +
+            "product_id= #{productId};")
+    void updateById(@Param("productId") Integer productId, @Param("productRequest") ProductRequest productRequest);
 }
