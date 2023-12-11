@@ -77,4 +77,6 @@ public interface ProductMapper {
             " where " +
             "product_id= #{productId};")
     void updateById(@Param("productId") Integer productId, @Param("productRequest") ProductRequest productRequest);
+    @Delete("delete  from product where product_id=#{productId}")
+    void deleteById(Integer productId);
 }

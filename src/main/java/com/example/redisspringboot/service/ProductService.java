@@ -14,4 +14,5 @@ public interface ProductService {
     int countProduct(ProductQueryParams productQueryParams);
 
     Product updateProduct( Integer productId, ProductRequest productRequest);
+    public  String removeById(Integer productId);
 }

@@ -73,4 +73,12 @@ public class ProductController {
         Product rs=productService.getProductById(productId);
         return ResponseEntity.status(HttpStatus.CREATED).body(rs);
     }
+
+    @DeleteMapping("product/{productId}")
+    public ResponseEntity<String> deleteProduct(@PathVariable(name = "productId")Integer productId ) {
+        Product check=productService.getProductById(productId);
+        if(check == null)//先檢查商品是否存在
+            return ResponseEntity.badRequest().build();
+        return ResponseEntity.status(HttpStatus.CREATED).body( productService.removeById(productId));
+    }
 }
