@@ -23,8 +23,8 @@ public class RedisMessagePublisher  {
         redisTemplate.getConnectionFactory().getConnection().subscribe(messageListener, channel.getBytes());
     }
 
-//    public void removeSubscription(String channel) {
-//        // 动态取消订阅
-//        redisTemplate.getConnectionFactory().getConnection().remo(channel.getBytes());
-//    }
+    public void removeSubscription(String channel) {
+        // 动态取消订阅
+        redisTemplate.getConnectionFactory().getConnection().discard();
+    }
 }
