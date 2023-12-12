@@ -1,4 +1,4 @@
-# Project_PET_BackEnd
+# SpringBoot Redis Cache
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
@@ -10,7 +10,7 @@
 
 ### * 商城:商品 查詢/新增/修改/功能 
  
-### * Redis : 緩存
+### * Redis : 緩存 、發布訂閱
 
 ## 使用版本:
 ### * Spring boot 2.7.13 
